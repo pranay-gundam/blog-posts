@@ -14386,9 +14386,9 @@ $$\begin{align}\max_{x}\mathbb{E}\left[u(\rho, t)|\,x,h,s\right] = \max_{x}\math
 
 
 
-<div id="27de1b91-f2e1-4207-9f5f-dda4a3ca20d7" class="jupyter-widgets jp-OutputArea-output ">
+<div id="6c6354b3-c8b0-4654-9658-cc9e2c223bb0" class="jupyter-widgets jp-OutputArea-output ">
 <script type="text/javascript">
-var element = document.getElementById('27de1b91-f2e1-4207-9f5f-dda4a3ca20d7');
+var element = document.getElementById('6c6354b3-c8b0-4654-9658-cc9e2c223bb0');
 </script>
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id": "f16607dca9024665afcf1b6ae87765e0", "version_major": 2, "version_minor": 0}
@@ -14432,7 +14432,7 @@ var element = document.getElementById('27de1b91-f2e1-4207-9f5f-dda4a3ca20d7');
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Apendix">Apendix<a class="anchor-link" href="#Apendix">&#182;</a></h2><h4 id="A.-Truncated-Normal-Distribution">A. Truncated Normal Distribution<a class="anchor-link" href="#A.-Truncated-Normal-Distribution">&#182;</a></h4><p>Consider that instead of assuming that population density in subways cars was normally distributed conditional on $x, s, h$ they were truncated normal. That is, we do not allow for negative density or for a car to carry more people than is possible; the pdf function is 0 at all values less than equal to 0 or greater than equal to 200. All this would change is the conditional expectation expression in maximization problem but it involves a bit more algebra for the first order conditions. I won't write out everything explicitly but with a truncated normal distribution we would assume some mean $\mu =x_0e^{-x^2} + h_0e^{-(h-9)^2 - (h-17)^2} + s_0e^{-(s-33)^2}$ and standard distribution $\sigma$ and lower and upper bounds $\alpha = 0$ and $\beta = 200$ respectively. It would then follow that the mean of this distribution is $$\mu + \frac{\varphi(\alpha) - \varphi(\beta)}{Z}\sigma$$ where $\varphi(x) = \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{1}{2}x^2\right)$ and $Z = \Phi(\beta) - \Phi(\alpha)$ ($\Phi$ is the standard normal CDF).</p>
+<h2 id="Apendix">Apendix<a class="anchor-link" href="#Apendix">&#182;</a></h2><h4 id="A.-Truncated-Normal-Distribution">A. Truncated Normal Distribution<a class="anchor-link" href="#A.-Truncated-Normal-Distribution">&#182;</a></h4><p>Consider that instead of assuming that population density in subways cars was normally distributed conditional on $x, s, h$ they were truncated normal. That is, we do not allow for negative density or for a car to carry more people than is possible; the pdf function is 0 at all values less than equal to 0 or greater than equal to 200. All this would change is the conditional expectation expression in maximization problem but it involves a bit more algebra for the first order conditions. I won't write out everything explicitly but with a truncated normal distribution we would assume some mean $\mu =x_0e^{-x^2} + h_0e^{-(h-9)^2 - (h-17)^2} + s_0e^{-(s-33)^2}$ and standard distribution $\sigma$ and lower and upper bounds $\alpha = \frac{0 - \mu}{\sigma}$ and $\beta = \frac{200 - \mu}{\sigma}$ respectively. It would then follow that the mean of this distribution is $$\mu + \frac{\varphi(\alpha) - \varphi(\beta)}{Z}\sigma$$ where $\varphi(x) = \frac{1}{\sqrt{2\pi}}\exp\left(-\frac{1}{2}x^2\right)$ and $Z = \Phi(\beta) - \Phi(\alpha)$ ($\Phi$ is the standard normal CDF).</p>
 
 </div>
 </div>
