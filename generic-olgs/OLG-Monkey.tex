@@ -1,0 +1,127 @@
+%--------------------
+% Packages
+% -------------------
+\documentclass[11pt,english]{article}
+\usepackage{amsfonts}
+\usepackage[left=2.5cm,top=2cm,right=2.5cm,bottom=3cm,bindingoffset=0cm]{geometry}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.pathreplacing,calligraphy}
+\usepackage{fancyhdr}
+%\usepackage{currfile}
+\usepackage{nicefrac}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{lscape}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{setspace}
+\usepackage[font=itshape]{quoting}
+\onehalfspacing
+\usepackage{mathrsfs}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage[multiple]{footmisc}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage{listings}
+\usepackage{longtable}
+\definecolor{cmured}{RGB}{175,30,45}
+\definecolor{macroblue}{RGB}{56,108,176}
+\usepackage[format=plain,
+            labelfont=bf,
+            textfont=]{caption}
+\usepackage[colorlinks=true,citecolor=macroblue,linkcolor=macroblue,urlcolor=macroblue]{hyperref}
+\usepackage{varioref}
+\usepackage{chngcntr}
+
+\definecolor{darkgreen}{RGB}{30,175,88}
+\definecolor{darkblue}{RGB}{30,118,175}
+\definecolor{maroon}{rgb}{0.66,0,0}
+\definecolor{darkgreen}{rgb}{0,0.69,0}
+
+%Counters
+\newtheorem{theorem}{Theorem}[section] 
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{Assumption}
+\newtheorem{axiom}{Axiom}
+\newtheorem{case}{Case}
+\newtheorem{claim}{Claim}
+\newtheorem{condition}{Condition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{notation}{Notation}
+\newtheorem{remark}{Remark}
+
+
+
+\hypersetup{ 	
+pdfsubject = {},
+pdftitle = {Thoughts on OLGs},
+pdfauthor = {Pranay Gundam},
+linkcolor= macroblue
+}
+
+
+\title{\textbf{Thoughts on OLGs}}
+\author{Pranay Gundam}
+
+%-----------------------
+% Begin document
+%-----------------------
+\begin{document}
+
+\maketitle
+
+\noindent As some context beforehand, overlapping generations models (OLGs) at a very basic sense with only groups of consumers looks at the trends in savings and consumption for households who live for only a finite number of time periods. From this standpoint we can then incorporate firms with production functions that determine the amount of goods available for households to consume who offer labor to firms in exchange, and also governments who can tax and offer other consumption services. Let's put the basic OLG model into math language before we discuss how we can extend the problem.\\
+
+\noindent Specifically, let $N$ many households be born in each time period $t=1,2,3,\ldots$. Each household lives for two periods; the period in which they were born and the next consecutive period in which they consume a single type of a non-storable good. Let there also be $N$ many "initially old" households at time $t=1$: this means that at time $t=1$ we also populate it with a group of households that act as if they were born in $t=0$ but are not able to consume anything in that period. The utility for an household born in period $t$ who values consumption in a current period with the function $u(c)$ is $$U\left(c_t^t, c_{t+1}^t\right) = u\left(c_t^t\right) + \beta u\left(c_{t+1}^t\right).$$ Here $\beta\in (0,1]$ is a discount factor, and $c_i^j$ is the consumption for a household in period $i$ who was born in period $j$. Households are meant to optimize their utility with respect to the conditions that \begin{align*}c_t^{t} &\leq w_t^t,\\ 
+c_{t+1}^t &\leq w_{t+1}^t.\end{align*} Here, similarly to the indexing on consumption, $w_i^j$ is the endowment of the consumption good for a household in period $i$ who was born in period $j$. In a market in which each of these households interact with eachother we allow the existence of consumption bonds, or agreements between households that in exchange for one household giving another household units of the consumption good in the current period, in the next period the household who recieved the goods must then give some number of consumption goods in the future period to the household that originally gave the goods. Note that this restricts households to trading bonds only with other households born in the same time period since if they were to trade with households in different periods then in the next period the previously old generation of households would no longer be alive and would not be able to fufill their debt obligations. Furthermore, it is also logically consistent that if all the households born in a certain time period are homogenous in both utility functions and endowment then it would make no sense for them to trade bonds with eachother since there is no scenario in which a trade between two households would benefit both parties.\\
+
+\noindent With this setup in mind in order to solve one such scenario we can setup the following lagrangian maximization problem for a consumer at time $t$ $$\mathcal{L}(c_t^t, c_{t+1}^t, \mu_1, \mu_2) = u\left(c_t^t\right) + \beta u\left(c_{t+1}^t\right) + \mu_1\left(w_t^t - c_t^t\right) + \mu_2\left(w_{t+1}^t - c_{t+1}^t\right),$$ and the following first order conditions:
+\begin{align*}
+	c_t^t:\,& u'\left(c_t^t\right) = \mu_1,\\
+	c_{t+1}^t:\,& u'\left(c_{t+1}^t\right) = \mu_2,\\
+	\mu_1:\,& c_t^t = w_t^t,\\
+	\mu_2:\,& c_{t+1}^t = w_{t+1}^t.
+\end{align*} Which would then very clearly imply that $c_t^t = w_t^t$ and $c_{t+1}^t = w_{t+1}^t$ meaning each household consumes exactly their in period endowment. This is not a very exciting outcome but introducing even a little bit of complexity can lead to more interesting scenarios.\\
+
+\noindent In class we discussed a few variations of the setup above:\begin{enumerate}
+	\item Added in-period heterogeneity that incentivizes consumption bond trading.
+
+	\item Added in the concept of fiat money.
+
+	\item Added in governments that tax households and also consume some amount goods as well.
+
+	\item Added in varying population sizes over time.
+
+	\item We discussed a very basic version of adding firms with production functions
+\end{enumerate} There are some things that I want to explore that we didn't explicitly discuss in class:
+\begin{enumerate}
+	\item Households that live for $N$ many periods
+
+	\item  Add in stochasticity
+
+	\item Discuss a generalized sense of heterogeneity
+
+	\item Develop a more involved model with firms
+
+	\item Consider a continuum of firms and/or firms
+
+	\item What other financial instruments can we consider other than fiat money and consumption bonds
+
+	\item Add a more complicated government (basically a government that does more than just taxes and consumes goods)
+\end{enumerate}
+
+So far, most of these extensions are implemented in isolation so let's also consider situations where we combine some of the above.
+
+\end{document}
