@@ -82,6 +82,8 @@ linkcolor= macroblue
 
 \maketitle
 
+\subsection*{Introduction}
+
 \noindent As some context beforehand, overlapping generations models (OLGs) at a very basic sense with only groups of consumers looks at the trends in savings and consumption for households who live for only a finite number of time periods. From this standpoint we can then incorporate firms with production functions that determine the amount of goods available for households to consume who offer labor to firms in exchange, and also governments who can tax and offer other consumption services. Let's put the basic OLG model into math language before we discuss how we can extend the problem.\\
 
 \noindent Specifically, let $N$ many households be born in each time period $t=1,2,3,\ldots$. Each household lives for two periods; the period in which they were born and the next consecutive period in which they consume a single type of a non-storable good. Let there also be $N$ many "initially old" households at time $t=1$: this means that at time $t=1$ we also populate it with a group of households that act as if they were born in $t=0$ but are not able to consume anything in that period. The utility for an household born in period $t$ who values consumption in a current period with the function $u(c)$ is $$U\left(c_t^t, c_{t+1}^t\right) = u\left(c_t^t\right) + \beta u\left(c_{t+1}^t\right).$$ Here $\beta\in (0,1]$ is a discount factor, and $c_i^j$ is the consumption for a household in period $i$ who was born in period $j$. Households are meant to optimize their utility with respect to the conditions that \begin{align*}c_t^{t} &\leq w_t^t,\\ 
@@ -120,8 +122,20 @@ c_{t+1}^t &\leq w_{t+1}^t.\end{align*} Here, similarly to the indexing on consum
 	\item What other financial instruments can we consider other than fiat money and consumption bonds
 
 	\item Add a more complicated government (basically a government that does more than just taxes and consumes goods)
+
+	\item Multiple goods
 \end{enumerate}
 
-So far, most of these extensions are implemented in isolation so let's also consider situations where we combine some of the above.
+\noindent I'm sure that each of these concepts have been picked apart and discussed in fine detail since whenever the first theory on OLGs was developed but I want to work through and model some of them myself without having been influenced by any of the papers or textbooks that discuss these topics (which also leaves a lot of room for errors on my end so be aware of that) as a means to work out my - econ related - creative muscles. In addition, to preface, with the foresight of having already done a bit of work on each of these questions, in order to come to some level of a meaningful answer that relates a trend of savings or an actual equilibrium we have to impose more restrictions on the structure of the endowments (if not actual quantities then at least relationships between values in the form of inequalities). All that being said, here are my thoughts on a few of these items.
+
+\subsection*{Multiple Goods}
+
+\subsection*{N Period Lives}
+
+\subsection*{Generalized Heterogeneity}
+
+\subsection*{Stochasticity}
+
+\subsection*{Fleshed out Firm Sector}
 
 \end{document}
