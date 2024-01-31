@@ -1,0 +1,128 @@
+%--------------------
+% Packages
+% -------------------
+\documentclass[11pt,english]{article}
+\usepackage{amsfonts}
+\usepackage[left=2.5cm,top=2cm,right=2.5cm,bottom=3cm,bindingoffset=0cm]{geometry}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{decorations.pathreplacing,calligraphy}
+\usepackage{fancyhdr}
+%\usepackage{currfile}
+\usepackage{nicefrac}
+\usepackage{cite}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{lscape}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{setspace}
+\usepackage[font=itshape]{quoting}
+\onehalfspacing
+\usepackage{mathrsfs}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage[multiple]{footmisc}
+\usepackage[T1]{fontenc}
+\usepackage[sc]{mathpazo}
+\usepackage{listings}
+\usepackage{longtable}
+\definecolor{cmured}{RGB}{175,30,45}
+\definecolor{macroblue}{RGB}{56,108,176}
+\usepackage[format=plain,
+            labelfont=bf,
+            textfont=]{caption}
+\usepackage[colorlinks=true,citecolor=macroblue,linkcolor=macroblue,urlcolor=macroblue]{hyperref}
+\usepackage{varioref}
+\usepackage{chngcntr}
+
+\definecolor{darkgreen}{RGB}{30,175,88}
+\definecolor{darkblue}{RGB}{30,118,175}
+\definecolor{maroon}{rgb}{0.66,0,0}
+\definecolor{darkgreen}{rgb}{0,0.69,0}
+
+%Counters
+\newtheorem{theorem}{Theorem}[section] 
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{assumption}{Assumption}
+\newtheorem{axiom}{Axiom}
+\newtheorem{case}{Case}
+\newtheorem{claim}{Claim}
+\newtheorem{condition}{Condition}
+\newtheorem{definition}{Definition}
+\newtheorem{example}{Example}
+\newtheorem{notation}{Notation}
+\newtheorem{remark}{Remark}
+
+
+
+\hypersetup{ 	
+pdfsubject = {},
+pdftitle = {Intercepting Moving Bodies in Space},
+pdfauthor = {Pranay Gundam},
+linkcolor= macroblue
+}
+
+
+\title{\textbf{Intercepting Moving Bodies in Space}}
+\author{Pranay Gundam}
+
+%-----------------------
+% Begin document
+%-----------------------
+\begin{document}
+
+\maketitle
+
+\subsection*{Introduction}
+
+\noindent As I've been reading the \textit{Rememberance of Earth's Past} series by Lui Cixin one intellectual passion of mine has rekindled, Astrophysics. Now I will say, my experience in this subject is not as mathematically deep as it is in economics but I know the basics of kinematics and some differential equations as well which I think sets me up to model simple interactions between bodies in space. This leads me to talk about one question that I've always considered in the back of my mind and had a framework for solving but never really worked out the math for. I am curious about how space agencies choose how to target different celestial bodies, for example, when we send rovers to the Mars, I know it's not a simple matter of looking through a telescope at Mars and then setting the destination coordinates and heading there at full blast. One must consider the speed of light that creates a lagtime in our observations, the pattern with which the target celestial body travels such that we can aim to where we think it will be by the time we would get there, and the cost of materials it takes to travel at different speeds and for different lengths of time. There are undoubtably more factors to consider beyond the ones that I have listed but I wanted to start with a list such that I knew how to work with and was somewhat interesting.\\
+
+\noindent The rest of this post shall be three exercises in increasing difficulty regarding how agents choose to get intercept celestial bodies in space where the difficulty lies in relative motion of the target body. I am completely aware that these are probably googleable problems but I wanted to work it out myself for fun.
+\begin{enumerate}
+	\item Stationary target 
+	\item A target that moves with some fixed velocity but no acceleration
+	\item A target that has constant acceleration
+	\item 
+\end{enumerate}
+
+\subsection*{Stationary Target}
+
+\noindent Consider our target to be located at $\mathbf{x_f^0}\in \mathbb{R}^3$ and the agent is located at $\mathbf{x_a^0}\in \mathbb{R}^3$. The goal of the agent is to move from their current location to the target but they face costs that depends on how long it takes to get to their destination and on how much they choose to accelerate throughout the duration of the trip. For now, we will assume that the agent chooses only one constant rate of acceleration throughout the entire journey. As such, the optimization problem that the agent faces is (I included some transformations to make the calculations a little bit easier) $$\min_{a_x,a_y,a_z}\,a_{cost}\lVert\mathbf{a}\rVert^2 + t_{cost}t$$ $$s.t. \quad \mathbf{x_f^0} = \mathbf{x_a^0} + \mathbf{v_0}t + \frac{1}{2}\mathbf{a}t^2$$
+
+For now, I will also assume that the agent starts from a standstill (aka the agent has a 0 initial velocity). One important thing to note is that (and there might be a more clever way to solve it, just keep in mind I'm doing this blind with no resources) there are actually three boundary constraints, one for each of the three spatial dimensions. As such, we can now setup the lagrangian and find the first order conditions.
+\begin{align*}
+	\mathcal{L}(a_x,a_y,a_z,\lambda_x,\lambda_y,\lambda_z) = a_{cost}\left[a_x^2 + a_y^2 + a_z^2\right] + t_{cost}t &- \lambda_x(x_{a,x}^0 - x_{f,x}^0 + 0.5a_xt^2)\\ &- \lambda_y(x_{a,y}^0 - x_{f,y}^0 + 0.5a_yt^2)\\ &- \lambda_z(x_{a,z}^0 - x_{f,z}^0 + 0.5a_zt^2).
+\end{align*}
+
+The corresponding first order conditions are then
+\begin{align*}
+a_x:& 2a_{cost}a_x - 0.5\lambda_xt^2 = 0\\
+a_y:& 2a_{cost}a_y - 0.5\lambda_yt^2 = 0\\
+a_z:& 2a_{cost}a_z - 0.5\lambda_zt^2 = 0\\
+\lambda_x:& x_{a,x}^0 - x_{f,x}^0 + 0.5a_xt^2 = 0\\
+\lambda_y:& x_{a,y}^0 - x_{f,y}^0 + 0.5a_yt^2 = 0\\
+\lambda_z:& x_{a,z}^0 - x_{f,z}^0 + 0.5a_zt^2 = 0
+\end{align*}
+
+\subsection*{Linearly Moving Target}
+
+
+\subsection*{Elliptically Moving Target}
+
+
+\subsection*{Objects Beyond Reach}
+
+
+
+
+
+\end{document}

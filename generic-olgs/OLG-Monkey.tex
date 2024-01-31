@@ -130,12 +130,75 @@ c_{t+1}^t &\leq w_{t+1}^t.\end{align*} Here, similarly to the indexing on consum
 
 \subsection*{Multiple Goods}
 
+The basic difference here is that we add dimensionality to the utility function, endowments, and consumption choices. In this case let's just assume that there are two goods. Let's proactively introduce a little bit of heterogeneity (otherwise we have the degenerate case where everyone just consume their endowment) and say that each period an equal number of two types of workers are born. A worker who gets endowment $(0,0)$ when they are young and $(w_1^o, w_2^o)$, and another worker who gets endowment $(w_1^y,w_2^y)$ when they are young and $(0, 0)$. With this in mind (and by normalizing both the young income and old income populations to $N=1$), we can write the household's optimization problem as
+\begin{align*}
+	\max_{(c_{1,t}^t, c_{1,t+1}^t), (c_{2,t}^t, c_{2,t+1}^t), (s_{1,1}^t, s_{1,2}^t, s_{2,1}^t, s_{2,2}^t)} u(c_{1,t}^t, c_{2,t}^t) + \beta u(c_{1,t+1}^t, c_{2,t+1}^t)
+\end{align*} such that the individual budget constraints are satisfied respectively for the young income and the old income worker are
+\begin{align*}
+	&c_{1,t}^t + s_{1,1}^t + s_{1,2}^t \leq w_1^y			&c_{2,t}^t + s_{2,1}^t + s_{2,2}^t \leq w_2^y\\
+	&c_{1,t+1}^t \leq R_{1,1}^ts_{1,1}^t + R_{1,2}^t s_{1,2}^t 		&c_{2,t+1}^t \leq R_{2,1}^ts_{2,1}^t + R_{2,2}^ts_{2,2}^t\\
+\end{align*}
+and
+\begin{align*}
+	&c_{1,t}^t + s_{1,1}^t + s_{1,2}^t \leq 0			&c_{2,t}^t + s_{2,1}^t + s_{2,2}^t \leq 0\\
+	&c_{1,t+1}^t \leq R_{1,1}^ts_{1,1}^t + R_{1,2}^t s_{1,2}^t 	+ w_1^o	&c_{2,t+1}^t \leq R_{2,1}^ts_{2,1}^t + R_{2,2}^ts_{2,2}^t + w_2^o\\
+\end{align*}
+In addition, the following markets must clear
+\begin{itemize}
+	\item \textbf{Consumption Bonds}
+	
+	Specifically that for all $t$ we have that \begin{align*}
+		s_{1,1}^{y,t} + s_{1,1}^{o,t} &= 0 \\
+		s_{1,2}^{y,t} + s_{1,2}^{o,t} &= 0 \\
+		s_{2,1}^{y,t} + s_{2,1}^{o,t} &= 0 \\
+		s_{2,2}^{y,t} + s_{2,2}^{o,t} &= 0
+	\end{align*}
+
+	\item \textbf{Goods Market} 
+
+	Specifically that for all $t$ we have that \begin{align*}
+		c_{1,t}^{y,t} + c_{1,t}^{o,t} + c_{1,t}^{y,t-1} + c_{1,t}^{o,t-1} &= w_1^y + w_1^o \\
+		c_{2,t}^{y,t} + c_{2,t}^{o,t} + c_{2,t}^{y,t-1} + c_{2,t}^{o,t-1} &= w_2^y + w_2^o \\
+	\end{align*}
+\end{itemize}
+Now with all this in mind, I'm just going to leave it after writing out the first order conditions for the young agent. They are
+\begin{align*}
+	c_{1,t}^t &:\, u_1(c_{1,t}^t, c_{2,t}^t) - \lambda_{1,t} = 0 \\
+	c_{2,t}^t &:\, u_2(c_{1,t}^t, c_{2,t}^t) - \lambda_{2,t}  = 0 \\
+	c_{1,t+1}^t &:\, \beta u_1(c_{1,t+1}^t, c_{2,t+1}^t) - \lambda_{1,t+1} = 0 \\
+	c_{2,t+1}^t &:\, \beta u_2(c_{1,t+1}^t, c_{2,t+1}^t) - \lambda_{2,t+1} = 0 \\
+	s_{1,1}^t &:\,  \lambda_{1,t} + \lambda_{1,t+1}R_{1,1}^t = 0 \\
+	s_{1,2}^t &:\,  \lambda_{1,t} + \lambda_{1,t+1}R_{1,2}^t = 0 \\
+	s_{2,1}^t &:\,  \lambda_{2,t} + \lambda_{2,t+1}R_{2,1}^t = 0 \\
+	s_{2,2}^t &:\,  \lambda_{2,t} + \lambda_{2,t+1}R_{2,2}^t = 0 \\
+	\lambda_{1,t} &:\, c_{1,t}^t + s_{1,1}^t + s_{1,2}^t = w_1^y \\
+	\lambda_{2,t} &:\, c_{2,t}^t + s_{2,1}^t + s_{2,2}^t = w_2^y \\
+	\lambda_{1,t+1} &:\, R_{1,1}^ts_{1,1}^t + R_{1,2}^ts_{1,2}^t = c_{1,t+1}^t  \\
+	\lambda_{2,t+1} &:\, R_{2,1}^ts_{2,1}^t + R_{2,2}^ts_{2,2}^t = c_{2,t+1}^t \\
+\end{align*}
+
+From this discussion we can see a few key takeaways:
+\begin{itemize}
+	\item There is a new interaction between individuals in that in the vanilla model I discussed at the very top where in the name of consumption smoothing, since there is no means of transforming one good into another, agents can make agreements to trade one good for another. This means that as the number of goods increases linearly the dimentionality of the problem increases exponentially. Again, there might be some tricks to reduce the dimensionality that I'm missing or some other issues with my setup but as of now I see how there are often issues in models when we increase the number of goods just from one to two. 
+
+	\item The general FOCs structure is similar but one important detail is that the FOCs for consumption are dependent on both foods irregarless which one we are taking the derivative with respect to.
+
+	\item We can assume that for $N$ many goods, the FOCs and setup is very similar except we have exponentially more conditions and constraints.
+\end{itemize}
+
 \subsection*{N Period Lives}
 
-\subsection*{Generalized Heterogeneity}
+\noindent In this case, individuals live for longer than just two periods. The case we will work out is if an individual lives for three periods and there some easy generalizations to make after this example. There are many reasons why we would want to develop a model where agents can live for multiple periods, we might want to represent a more clear distinction between more parts of a household's life (for example, an education period where household's are not making any money, an initial job period where household's recieve a wage but that is not as high as the income they recieve in their next period where they are in the peak of their career, and finally a retirement period where they make no income once again). We can also introduce another dimension of heterogeneity here as well in creating households that live for varying time periods. \\
+
+\noindent That all being said, this case will cover the scenario where agents live for three periods, when they are young, middle aged, and old. Each agent is the same and they recieve endowments $w_y, w_m, w_o$ in each of the respective periods. There will not be any sources of heterogeneity \\
+
+\noindent From this discussion there are a few key takeaways:
+\begin{itemize}
+	\item A cool new interaction that happens here is that even though each of the agents are the exact same, consumption bond trading still occurs. Specifically in the two period case people didn't want to trade with others in a different generation since old people don't want to make trade with the young generation as they won't be alive to complete the transaction in the next period; and if you are a young agent then you have no other choice than to try to trade with an old agent given that all the people in the same generation are homogenous. Now, however, even if every single agent in a generation is homogenous, in a model where agents live for more than two periods non-old agents still have other generations who want to trade. Specifically in this case ...
+\end{itemize}
 
 \subsection*{Stochasticity}
 
-\subsection*{Fleshed out Firm Sector}
+Finally, we had discussed stochasticity in the setting of 
 
 \end{document}
