@@ -190,15 +190,89 @@ From this discussion we can see a few key takeaways:
 
 \noindent In this case, individuals live for longer than just two periods. The case we will work out is if an individual lives for three periods and there some easy generalizations to make after this example. There are many reasons why we would want to develop a model where agents can live for multiple periods, we might want to represent a more clear distinction between more parts of a household's life (for example, an education period where household's are not making any money, an initial job period where household's recieve a wage but that is not as high as the income they recieve in their next period where they are in the peak of their career, and finally a retirement period where they make no income once again). We can also introduce another dimension of heterogeneity here as well in creating households that live for varying time periods. \\
 
-\noindent That all being said, this case will cover the scenario where agents live for three periods, when they are young, middle aged, and old. Each agent is the same and they recieve endowments $w_y, w_m, w_o$ in each of the respective periods. There will not be any sources of heterogeneity \\
+\noindent That all being said, this case will cover the scenario where agents live for three periods, when they are young, middle aged, and old. Each agent is the same and they recieve endowments $w_y, w_m, w_o$ in each of the respective periods. There will not be any level of heterogeneity other than the differences in age and each agent observes utility $ u(c_t^t) + \beta u(c_{t+1}^t) + \beta^2u(c_{t+2}^t)$ and chooses their consumption and consumption bond trading in each period. More specifically, each agent faces the optimization problem:
+\begin{align*}
+	\max_{(c_t^t, c_{t+1}^t, c_{t+2}^t), (s_t^t, s_{t+1}^t)} u(c_t^t) + \beta u(c_{t+1}^t) + \beta^2 u(c_{t+2}^t)
+\end{align*} such that the following budget contraints are satisfied
+\begin{align*}
+	c_t^t + s_t^t &\leq w_y\\
+	c_{t+1}^t + s_{t+1}^t &\leq w_m + R_t s_t^t\\
+	c_{t+2}^t &\leq w_o + R_{t+1}s_{t+1}^t
+\end{align*} In addition, the following markets must clear \begin{itemize}
+	\item \textbf{Consumption Bonds}
+	
+	Specifically that for all $t$ we have that \begin{align*}
+		s_{t}^{t} + s_{t}^{t-1} &= 0 
+	\end{align*}
 
-\noindent From this discussion there are a few key takeaways:
+	\item \textbf{Goods Market} 
+
+	Specifically that for all $t$ we have that \begin{align*}
+		c_{t}^{t} + c_{t}^{t-1} + c_{t}^{t-2} &= w_y + w_m + w_o
+	\end{align*}
+\end{itemize}
+Now with all this in mind, I'm just going to leave it after writing out the first order conditions for the young agent. They are
+\begin{align*}
+	c_t^t &:\, u'(c_t^t) - \lambda_t = 0\\
+	c_{t+1}^t &:\, \beta u'(c_{t+1}^t) - \lambda_{t+1} = 0 \\
+	c_{t+2}^t &:\, \beta^2 u'(c_{t+2}^t) - \lambda_{t+2} = 0\\
+	s_t^t &:\, \lambda_t + R_t\lambda_{t+1}\\
+	s_{t+1}^t &:\lambda_{t+1} + R_{t+1}\lambda_{t+2} \\
+	\lambda_{t} &:\, c_t^t + s_t^t = w_y\\
+	\lambda_{t+1} &:\, c_{t+1}^t + s_{t+1}^t = w_m + R_ts_t^t\\
+	\lambda_{t+2} &:\, c_{t+2}^t = w_o + R_{t+1}s_{t+1}^t 
+\end{align*}
+From this discussion there are a few key takeaways:
 \begin{itemize}
-	\item A cool new interaction that happens here is that even though each of the agents are the exact same, consumption bond trading still occurs. Specifically in the two period case people didn't want to trade with others in a different generation since old people don't want to make trade with the young generation as they won't be alive to complete the transaction in the next period; and if you are a young agent then you have no other choice than to try to trade with an old agent given that all the people in the same generation are homogenous. Now, however, even if every single agent in a generation is homogenous, in a model where agents live for more than two periods non-old agents still have other generations who want to trade. Specifically in this case ...
+	\item A cool new interaction that happens here is that even though each of the agents are the exact same, consumption bond trading still occurs. Specifically in the two period case people didn't want to trade with others in a different generation since old people don't want to make trade with the young generation as they won't be alive to complete the transaction in the next period; and if you are a young agent then you have no other choice than to try to trade with an old agent given that all the people in the same generation are homogenous. Now, however, even if every single agent in a generation is homogenous, in a model where agents live for more than two periods non-old agents still have other generations who want to trade. 
+
+	\item Another intruiging detail that I thought about but isn't apparent in this model (since it is only three period and also doesn't have any heterogeneity) is that in models with multiple periods there should be bonds whose maturity are longer than just one period. The reason why they dont appear in this scenario is that at any time $t$ are no generations that are both alive and not old at $t+2$. Although these bonds should exist in theory, I do think that you could create them using the other one period consumption bonds. For example if you wanted to trade one good of consumption now in return for one good of consumption in two periods you could do so by just buying both a bond at time $t$ and at $t+1$.
+
+	\item Finally, another important detail to note that I don't think I have made clear here is that the consumer should be reoptimizing their choices each period. This is more of a nuance that is grounded in behavioural econ but often times people have an additional discount factor that is applied uniformly to all future periods in addition to the $\beta^t$ discounting. This creates a clear distinction between current period utility and future period utility so often times when an individual ages from young to middle aged they might have a different optimal decision in how to allocate their consumption in middle and old ages as they did when they were young. In the setup above, I didn't add this additional discount factor and so since each future period is discounted by multiplying an additional $\beta$ the optimal decisions should stay the same at each period in their life (the difference in utility from time $t_0$ to time $t_1$ is always relativistically the same).
 \end{itemize}
 
 \subsection*{Stochasticity}
 
-Finally, we had discussed stochasticity in the setting of 
+Finally, we had discussed stochasticity in the setting of an infinitely lived agent but not in the case of the OLG model. It makes sense, however, to include it since stochasticity is often the cornerstone of a lot of models and no one can really say that they know what will happen in the future deterministically (unless you happen to have some model that encompasses everything in the known universe). The OLG analog of the infinitely lived agent with randomness is not too different other than introducing expected values and contingent claims. Note that a vanilla model with homogeneity and non-state contingent endowments essentially degenerates to the vanilla model that I introduced in the very beginning of this document. A vanilla model with homogeneity and state contingent endowments is a little more interesting but would also have no consumption bond trading either since each agent experiences the same endowments and utility meaning that no two trade partners could both benefit from a trade. As such, the model setup that I will go through now will be one where agents live for two periods, are either a young-income or old-income agent, and face state-contingent endowments. I am not going to say anything about the probability distribution of the states and I will denote a state vector as $h^t = (h_0,h_1,\cdots, h_t)$ since I've been consistently using $s_t^t$ to denote savings/consumption bonds. To put into an optimization problem setup, both workers try to maximize 
+\begin{align*}
+	\max_{\{c_t^t(h^t), c_{t+1}^t(h_{t+1}|h^t), s_{t}(h^t)\}_{t, h^t, h_{t+1}|h^t} } \sum_{h^t}\pi_t(h^t)u(c_t^t(h^t)) + \sum_{h_{t+1}|h^t} \beta \pi_{t+1}(h_{t+1}|h^t)u(c_{t+1}^t(h_{t+1}|h^t)) 
+\end{align*}
+where the young-income worker faces budget constraints for all $h^t$ and $h_{t+1}|h^t$
+\begin{align*}
+	c^t_t(h^t) + s_t(h^t) &\leq w_y(h^t)\\
+	c_{t+1}^t(h_{t+1}, h^t) &\leq R_ts_t(h^t)
+\end{align*}
+and the old-income worker faces budget constraints
+\begin{align*}
+	c^t_t(h^t) + s_t(h^t) &\leq 0\\
+	c_{t+1}^t(h_{t+1}|h^t) &\leq R_ts_t(h^t) + w_o(h_{t+1}|h^t)
+\end{align*}
+In addition, the following markets must clear \begin{itemize}
+	\item \textbf{Consumption Bonds}
+	
+	Specifically that for all $t,h^t$ we have that \begin{align*}
+		s_{t}^{y}(h^t) + s_{t}^{o}(h^t) &= 0 
+	\end{align*}
+
+	\item \textbf{Goods Market} 
+
+	Specifically that for all $t, h^t$ we have that \begin{align*}
+		c_{t}^{y,t}(h^t) + c_{t}^{y,t-1}(h^t) + c_{t}^{o,t}(h^t) + c_{t}^{o,t-1}(h^t) &= w_y(h^t) + w_o(h^t)
+	\end{align*}
+\end{itemize}
+Before we get into the FOCs and some key takeaways I want to make very clear what is going on with the $h^t, h_{t+1}$ terms since the notation can get a little crazy and I don't even think I understood what the textbook meant or why it was neccesary when I was taking the Sargent/Ljunqvist class until I tried to write it out myself just now. Specifically, I am using this weird notation where in terms of future states, we can only maximize over $h_{t+1}|h^t$. This is mostly because whenever we consider future states we must do so from the perspective of an agent who is realizing $h^t$ since this is information they already know and if $h_{t+1}$ is not independent to $h^t$ then $h^t$ (which is expressed in the probabilities $\pi_t$) is important to determine the likelihood of the next states. I think there is some redundancy where this notation is not neccesary but looking at conditional probabilities is what makes the most sense to me. That being said here are the FOCs for the young-income worker for each $t$ and corresponding $h^t, h_{t+1}|h^t$ are
+\begin{align*}
+	c_t^t(h^t) &:\, \pi_t(h^t)u'(c_t^t(h^t)) - \lambda(h^t) = 0\\	
+	c_{t+1}^t(h_{t+1}|h^t) &:\, \beta \pi_{t+1}(h_{t+1}|h^t)u'(c_{t+1}^t(h_{t+1}|h^t))  - \lambda(h_{t+1}|h^t) = 0\\
+	s_t(h^t) &:\, \lambda(h^t) + \lambda(h_{t+1}|h^t) R_t = 0 \\
+	\lambda(h^t) &:\, c^t_t(h^t) + s_t(h^t) = w_y(h^t)\\
+	\lambda(h_{t+1}|h^t) &:\, c_{t+1}^t(h_{t+1}, h^t) = R_ts_t(h^t)
+\end{align*}
+So finally, from this discussion there are a few key takeaways:
+\begin{itemize}
+	\item The size of the linear system of equations that we have to solve in this situation is much larger than in the vanilla no stochasticity situation. This of course depends on the nature of the probability distribution but the more values with positive probaility in the distribution the more equations there are in the system of FOC conditions to solve. One can see how in conjuction with multiple goods and agents living multiple lives alone how the problem becomes very analytically difficult to solve to find competitive equilibrium.
+
+	\item In the setup above I kind of glossed over state contingent claims to consumption and using a pricing kernel, but to be more thorough this is something that would probably enter the setup as well. I am pretty sure that mathematically including a guaranteed bond is basically the same (put vaguely I think the interest rate and savings is basically equivalent to the conditional expected values of all the contingent claims and pricing kernels).
+\end{itemize}
 
 \end{document}
