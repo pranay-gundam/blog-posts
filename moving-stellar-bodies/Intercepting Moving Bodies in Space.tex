@@ -91,14 +91,17 @@ linkcolor= macroblue
 	\item Stationary target 
 	\item A target that moves with some fixed velocity but no acceleration
 	\item A target that has constant acceleration
-	\item 
+	\item Hassling over dependence between acceleration and time
 \end{enumerate}
 
 \subsection*{Stationary Target}
 
 \noindent Consider our target to be located at $\mathbf{x_f^0}\in \mathbb{R}^3$ and the agent is located at $\mathbf{x_a^0}\in \mathbb{R}^3$. The goal of the agent is to move from their current location to the target but they face costs that depends on how long it takes to get to their destination and on how much they choose to accelerate throughout the duration of the trip. For now, we will assume that the agent chooses only one constant rate of acceleration throughout the entire journey. As such, the optimization problem that the agent faces is (I included some transformations to make the calculations a little bit easier) $$\min_{a_x,a_y,a_z}\,a_{cost}\lVert\mathbf{a}\rVert^2 + t_{cost}t$$ $$s.t. \quad \mathbf{x_f^0} = \mathbf{x_a^0} + \mathbf{v_0}t + \frac{1}{2}\mathbf{a}t^2$$
 
-For now, I will also assume that the agent starts from a standstill (aka the agent has a 0 initial velocity). One important thing to note is that (and there might be a more clever way to solve it, just keep in mind I'm doing this blind with no resources) there are actually three boundary constraints, one for each of the three spatial dimensions. As such, we can now setup the lagrangian and find the first order conditions.
+For now, I will also assume that the agent starts from a standstill (aka the agent has a 0 initial velocity). One important thing to note is that (and there might be a more clever way to solve it, just keep in mind I'm doing this blind with no resources) there are actually three boundary constraints, one for each of the three spatial dimensions. To solve now, I could setup the lagrangian but
+
+
+As such, we can now setup the lagrangian and find the first order conditions.
 \begin{align*}
 	\mathcal{L}(a_x,a_y,a_z,\lambda_x,\lambda_y,\lambda_z) = a_{cost}\left[a_x^2 + a_y^2 + a_z^2\right] + t_{cost}t &- \lambda_x(x_{a,x}^0 - x_{f,x}^0 + 0.5a_xt^2)\\ &- \lambda_y(x_{a,y}^0 - x_{f,y}^0 + 0.5a_yt^2)\\ &- \lambda_z(x_{a,z}^0 - x_{f,z}^0 + 0.5a_zt^2).
 \end{align*}
