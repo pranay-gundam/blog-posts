@@ -96,35 +96,57 @@ linkcolor= macroblue
 
 \subsection*{Stationary Target}
 
-\noindent Consider our target to be located at $\mathbf{x_f^0}\in \mathbb{R}^3$ and the agent is located at $\mathbf{x_a^0}\in \mathbb{R}^3$. The goal of the agent is to move from their current location to the target but they face costs that depends on how long it takes to get to their destination and on how much they choose to accelerate throughout the duration of the trip. For now, we will assume that the agent chooses only one constant rate of acceleration throughout the entire journey. As such, the optimization problem that the agent faces is (I included some transformations to make the calculations a little bit easier) $$\min_{a_x,a_y,a_z}\,a_{cost}\lVert\mathbf{a}\rVert^2 + t_{cost}t$$ $$s.t. \quad \mathbf{x_f^0} = \mathbf{x_a^0} + \mathbf{v_0}t + \frac{1}{2}\mathbf{a}t^2$$
+\noindent Consider our target to be located at $\mathbf{x_f^0}\in \mathbb{R}^3$ and the agent is located at $\mathbf{x_a^0}\in \mathbb{R}^3$. The goal of the agent is to move from their current location to the target but they face costs that depends on how long it takes to get to their destination and on how much they choose to accelerate throughout the duration of the trip. For now, we will assume that the agent chooses only one constant rate of acceleration throughout the entire journey. As such, the optimization problem that the agent faces is (I included some transformations to make the calculations a little bit easier) $$\min_{a_x,a_y,a_z,t}\,a_{cost}\lVert\mathbf{a}\rVert^2 + t_{cost}t$$ $$s.t. \quad \mathbf{x_f^0} = \mathbf{x_a^0} + \mathbf{v_0}t + \frac{1}{2}\mathbf{a}t^2$$
 
-For now, I will also assume that the agent starts from a standstill (aka the agent has a 0 initial velocity). One important thing to note is that (and there might be a more clever way to solve it, just keep in mind I'm doing this blind with no resources) there are actually three boundary constraints, one for each of the three spatial dimensions. To solve now, I could setup the lagrangian but
-
-
-As such, we can now setup the lagrangian and find the first order conditions.
+\noindent For now, I will also assume that the agent starts from a standstill (aka the agent has a 0 initial velocity). One important thing to note is that (and there might be a more clever way to solve it, just keep in mind I'm doing this blind with no resources) there are actually three boundary constraints, one for each of the three spatial dimensions. That being said, I will first solve the one dimensional case and then show how the solution is very similar in higer dimensions. For the one dimensional case we have that the lagrangian is
 \begin{align*}
-	\mathcal{L}(a_x,a_y,a_z,\lambda_x,\lambda_y,\lambda_z) = a_{cost}\left[a_x^2 + a_y^2 + a_z^2\right] + t_{cost}t &- \lambda_x(x_{a,x}^0 - x_{f,x}^0 + 0.5a_xt^2)\\ &- \lambda_y(x_{a,y}^0 - x_{f,y}^0 + 0.5a_yt^2)\\ &- \lambda_z(x_{a,z}^0 - x_{f,z}^0 + 0.5a_zt^2).
+	\mathcal{L}(a,t,\lambda) = a_{cost}a^2 + t_{cost}t &- \lambda(x_{a}^0 - x_{f}^0 + 0.5at^2).
+\end{align*}
+The corresponding first order conditions are then
+\begin{align*}
+a:& 2a_{cost}a - 0.5\lambda t^2 = 0\\
+t:& t_{cost} - \lambda at = 0\\
+\lambda:& x_{a}^0 - x_{f}^0 + 0.5at^2 = 0\\
+\end{align*}
+The third FOC implies that $a = \frac{2(x_f^0 - x_a^0)}{t^2}$ which we can plug into the first two conditions to get the system
+\begin{align*}
+\frac{4a_{cost}(x_f^0 - x_a^0)}{t^2} - 0.5\lambda t^2 &= 0  \\
+t_{cost} - \frac{2\lambda (x_f^0 - x_a^0)}{t}  &= 0 \implies \lambda = \frac{t_{cost}t}{2(x_f^0 - x_a^0)}\\
+\end{align*} and then 
+\begin{align*}
+& \frac{4a_{cost}(x_f^0 - x_a^0)}{t^2} - 0.5\lambda t^2 = 0  \\
+\implies & \frac{4a_{cost}(x_f^0 - x_a^0)}{t^2} -  \frac{t_{cost}t^3}{4(x_f^0 - x_a^0)} = 0  \\
+\implies & t^5 = \frac{16a_{cost}(x_f^0 - x_a^0)^2}{t_{cost}}\\
+\implies & \pmb{t = \left(\frac{16a_{cost}(x_f^0 - x_a^0)^2}{t_{cost}}\right)^{1/5}}\\
+\implies & \pmb{a = \left(\frac{t_{cost}^2(x_f^0 - x_a^0)}{8a_{cost}^2}\right)^{1/5}}.
+\end{align*}
+Intuitively, this answer aligned with very basic dynamics that we would expect, both the optimal time an acceleration are inversly related to their respected costs and the ratio between the two costs is important in deciding what levels of either variable is optimal. Now for the three dimensional case 
+\begin{align*}
+	\mathcal{L}(a_x,a_y,a_z,\lambda_x,\lambda_y,\lambda_z, t) = a_{cost}\left[a_x^2 + a_y^2 + a_z^2\right] + t_{cost}t &- \lambda_x(x_{a,x}^0 - x_{f,x}^0 + 0.5a_xt^2)\\ &- \lambda_y(x_{a,y}^0 - x_{f,y}^0 + 0.5a_yt^2)\\ &- \lambda_z(x_{a,z}^0 - x_{f,z}^0 + 0.5a_zt^2).
 \end{align*}
 
 The corresponding first order conditions are then
 \begin{align*}
-a_x:& 2a_{cost}a_x - 0.5\lambda_xt^2 = 0\\
-a_y:& 2a_{cost}a_y - 0.5\lambda_yt^2 = 0\\
-a_z:& 2a_{cost}a_z - 0.5\lambda_zt^2 = 0\\
-\lambda_x:& x_{a,x}^0 - x_{f,x}^0 + 0.5a_xt^2 = 0\\
-\lambda_y:& x_{a,y}^0 - x_{f,y}^0 + 0.5a_yt^2 = 0\\
-\lambda_z:& x_{a,z}^0 - x_{f,z}^0 + 0.5a_zt^2 = 0
+a_x&: 2a_{cost}a_x - 0.5\lambda_xt^2 = 0\\
+a_y&: 2a_{cost}a_y - 0.5\lambda_yt^2 = 0\\
+a_z&: 2a_{cost}a_z - 0.5\lambda_zt^2 = 0\\
+t&: t_{cost} - \lambda_x a_xt - \lambda_y a_yt - \lambda_z a_zt =0\\ 
+\lambda_x&: x_{a,x}^0 - x_{f,x}^0 + 0.5a_xt^2 = 0\\
+\lambda_y&: x_{a,y}^0 - x_{f,y}^0 + 0.5a_yt^2 = 0\\
+\lambda_z&: x_{a,z}^0 - x_{f,z}^0 + 0.5a_zt^2 = 0
 \end{align*}
 
-\subsection*{Linearly Moving Target}
 
 
-\subsection*{Elliptically Moving Target}
+\subsection*{Target with non-zero velocity and acceleration}
 
+I've worked out the algebra for this to an extent and it is not fun.
+
+\noindent Before we head off into the next discussion, it is important to note that when there are no outside forces that act upon the agent we can actually shift our frame of reference and reduce a problem of n-dimensions into just a problem of one dimension (in fact even if there are forced acting upon the agent as long as they are parallel to the hyperplane that passes through the agent's starting and optimal ending points, but I think there is some additional nuance here with the optimal starting and ending points being dependent on the exogenous forces).
 
 \subsection*{Further extensions of the problem}
 
-So far I've been pitching the choices as choosing acceleration.
+So far I've been pitching the choices as choosing acceleration and time, but there are quite a few expressions in physics that can relate this position function. For example, we could model how the mass of a space ship increases as the length of a trip increases (for example a ship will require more resources and fuel on board for longer trips with a constant rate of acceleration) by substituting $a = F/m(t)$ where mass is written as a function of time and instead of choosing $a$ in the optimization problem, we choose $F$. We could even take further steps to expand $F$ with the energy equation $E = Fd$ and if then we were NASA we could easily know how much fuel exaclty we need to pack (whether chemical or \textit{fission}).
 
 
 
