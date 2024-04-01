@@ -89,9 +89,8 @@ linkcolor= macroblue
 \noindent The rest of this post shall be three exercises in increasing difficulty regarding how agents choose to get intercept celestial bodies in space where the difficulty lies in relative motion of the target body. I am completely aware that these are probably googleable problems but I wanted to work it out myself for fun.
 \begin{enumerate}
 	\item Stationary target 
-	\item A target that moves with some fixed velocity but no acceleration
-	\item A target that has constant acceleration
-	\item Hassling over dependence between acceleration and time
+	\item A target that moves 
+	\item Further possible extensions and choices
 \end{enumerate}
 
 \subsection*{Stationary Target}
@@ -136,17 +135,44 @@ t&: t_{cost} - \lambda_x a_xt - \lambda_y a_yt - \lambda_z a_zt =0\\
 \lambda_z&: x_{a,z}^0 - x_{f,z}^0 + 0.5a_zt^2 = 0
 \end{align*}
 
-
+So we can then continue from the FOC conditions
+\begin{align*}
+x_{a,x}^0 - x_{f,x}^0 + 0.5a_xt^2 &= 0 \implies  a_x = \frac{2( x_{f,x}^0 - x_{a,x}^0)}{t^2}, a_y = \frac{2( x_{f,y}^0 - x_{a,y}^0)}{t^2}, a_z = \frac{2( x_{f,z}^0 - x_{a,z}^0)}{t^2}\\	
+2a_{cost}a_x - 0.5\lambda_xt^2 &= 0 \implies \lambda_x = \frac{4a_{cost}a_x}{t^2}, \lambda_y = \frac{4a_{cost}a_y}{t^2}, \lambda_z = \frac{4a_{cost}a_z}{t^2}\\
+\end{align*}
+Combining the two expressions above we then get $$\lambda_x = \frac{8a_{cost}( x_{f,x}^0 - x_{a,x}^0)}{t^4}, \lambda_y = \frac{8a_{cost}( x_{f,y}^0 - x_{a,y}^0)}{t^4}, \lambda_z = \frac{8a_{cost}( x_{f,z}^0 - x_{a,z}^0)}{t^4}.$$ After substituting this into the third FOC and some more algebra we get that \begin{align*}
+\pmb{t} &\pmb{= \left(\frac{16a_{cost}}{t_{cost}}\lVert x_{f}^0 - x_a^0 \rVert^2\right)^{1/5}}\\
+\pmb{a_x} &\pmb{= \left(\frac{t_{cost}^2}{8a_{cost}^2}\lVert x_{f}^0 - x_a^0 \rVert^{-4}\right)^{1/5}(x_{f,x}^0 - x_{a,x})}\\
+\pmb{a_y} &\pmb{= \left(\frac{t_{cost}^2}{8a_{cost}^2}\lVert x_{f}^0 - x_a^0 \rVert^{-4}\right)^{1/5}(x_{f,y}^0 - x_{a,y})}\\
+\pmb{a_z} &\pmb{= \left(\frac{t_{cost}^2}{8a_{cost}^2}\lVert x_{f}^0 - x_a^0 \rVert^{-4}\right)^{1/5}(x_{f,z}^0 - x_{a,z})}
+\end{align*}
+\noindent If for some reason we wanted to consider our answer in $n$ many dimensions for any $n\in \mathbb{N}$ we can see how the expression would be the same. One important detail to note is how each of acceleration choices in each dimension are dependent on some level of a ratio between the distance in that specific dimension from the starting point to the target and the total distance in each of the dimensions accumulated.
 
 \subsection*{Target with non-zero velocity and acceleration}
 
-I've worked out the algebra for this to an extent and it is not fun.
+I've worked out the algebra for this to an extent and it is not fun. I'll note down a little bit of it here but I don't think I can come to a nice closed form expression as is above. To begin, we consider practically the same problem setup as before but now the boundary constraint is changed so that the target has values for initial velocity and acceleration. Specifically, we are faced with the optimization problem  $$\min_{\mathbf{a},t}\,a_{cost}\lVert\mathbf{a}\rVert^2 + t_{cost}t$$ $$s.t. \quad \mathbf{x_f^0} + \mathbf{v^0_f}t + \frac{1}{2}\mathbf{a_f}t^2= \mathbf{x_a^0} + \mathbf{v^0_a}t + \frac{1}{2}\mathbf{a_a}t^2$$
+
+\noindent The three dimensional case is a bit much to take on initially so with the fact that the solutions in each of the dimensions are pretty parallel I'll only consider the one dimensional case. In this case we have that the lagrangian is
+\begin{align*}
+	\mathcal{L}(a,t,\lambda) = a_{cost}a^2 + t_{cost}t &- \lambda((x_{a}^0 - x_{f}^0) + (v_a^0-v_f^0)t + 0.5(a_a - a_f)t^2).
+\end{align*}
+The corresponding first order conditions are then
+\begin{align*}
+a:& 2a_{cost}a - 0.5\lambda t^2 = 0\\
+t:& t_{cost} - \lambda((v_a^0-v_f^0) + (a_a - a_f)t) = 0\\
+\lambda:& (x_{a}^0 - x_{f}^0) + (v_a^0-v_f^0)t + 0.5(a_a - a_f)t^2 = 0\\
+\end{align*}
+
+The furthest that I can workout the first order conditions          
+
 
 \noindent Before we head off into the next discussion, it is important to note that when there are no outside forces that act upon the agent we can actually shift our frame of reference and reduce a problem of n-dimensions into just a problem of one dimension (in fact even if there are forced acting upon the agent as long as they are parallel to the hyperplane that passes through the agent's starting and optimal ending points, but I think there is some additional nuance here with the optimal starting and ending points being dependent on the exogenous forces).
 
 \subsection*{Further extensions of the problem}
 
 So far I've been pitching the choices as choosing acceleration and time, but there are quite a few expressions in physics that can relate this position function. For example, we could model how the mass of a space ship increases as the length of a trip increases (for example a ship will require more resources and fuel on board for longer trips with a constant rate of acceleration) by substituting $a = F/m(t)$ where mass is written as a function of time and instead of choosing $a$ in the optimization problem, we choose $F$. We could even take further steps to expand $F$ with the energy equation $E = Fd$ and if then we were NASA we could easily know how much fuel exaclty we need to pack (whether chemical or \textit{fission}).
+
+
 
 
 
