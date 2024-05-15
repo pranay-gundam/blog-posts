@@ -160,20 +160,17 @@ The corresponding first order conditions are then
 \begin{align*}
 a:& 2a_{cost}a - 0.5\lambda t^2 = 0\\
 t:& t_{cost} - \lambda((v_a^0-v_f^0) + (a_a - a_f)t) = 0\\
-\lambda:& (x_{a}^0 - x_{f}^0) + (v_a^0-v_f^0)t + 0.5(a_a - a_f)t^2 = 0\\
+\lambda:& (x_{a}^0 - x_{f}^0) + (v_a^0-v_f^0)t + 0.5(a_a - a_f)t^2 = 0
 \end{align*}
 
-The furthest that I can workout the first order conditions          
-
+\noindent I had worked out the first order conditions to a point that just seemed so messy as to not have a nice closed form as in the last section so I didn't pursue this problem much further than that.\\
 
 \noindent Before we head off into the next discussion, it is important to note that when there are no outside forces that act upon the agent we can actually shift our frame of reference and reduce a problem of n-dimensions into just a problem of one dimension (in fact even if there are forced acting upon the agent as long as they are parallel to the hyperplane that passes through the agent's starting and optimal ending points, but I think there is some additional nuance here with the optimal starting and ending points being dependent on the exogenous forces).
 
-\subsection*{Further extensions of the problem}
+\subsection*{Further extensions of the problem and conclusing remarks}
 
-So far I've been pitching the choices as choosing acceleration and time, but there are quite a few expressions in physics that can relate this position function. For example, we could model how the mass of a space ship increases as the length of a trip increases (for example a ship will require more resources and fuel on board for longer trips with a constant rate of acceleration) by substituting $a = F/m(t)$ where mass is written as a function of time and instead of choosing $a$ in the optimization problem, we choose $F$. We could even take further steps to expand $F$ with the energy equation $E = Fd$ and if then we were NASA we could easily know how much fuel exaclty we need to pack (whether chemical or \textit{fission}).
+So far I've been pitching the choices as choosing acceleration and time, but there are quite a few expressions in physics that can relate this position function. For example, we could model how the mass of a space ship increases as the length of a trip increases (for example a ship will require more resources and fuel on board for longer trips with a constant rate of acceleration) by substituting $a = F/m(t)$ where mass is written as a function of time and instead of choosing $a$ in the optimization problem, we choose $F$. We could even take further steps to expand $F$ with the energy equation $E = Fd$ and if then we were NASA we could easily know how much fuel exactly we need to pack (whether chemical or \textit{fission}). I also don't know how to factor in relativity functionally off the top of my head without googling - other than some relationship between speed and time depending on the perspective of the optimizer in the problem relative to the moving objects - but if optimal acceleration takes the objects in the problem to relativistic speeds then that would also be something that we would need to consider.\\
 
-
-
-
+\noindent Ultimately I think that the basic problem of intersecting objects is not that difficult and is often seen in high school physics even but I've never encountered in the past what seems to me to be the equally important question of how to optimally intersect moving bodies. There are still a few equations I want to work out in the further extensions section that I didn't have the time to get to so I shall update this document over the next few weeks until I feel satisfied with it (or not).
 
 \end{document}
