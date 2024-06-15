@@ -84,25 +84,37 @@ linkcolor= macroblue
 
 \section*{Introduction}
 
-The game theory we usually talk about in introductory/intermediate undergrad classes and highschool always left me really dissatisfied (which to be fair, it is my fault that this is the extent of classes that I have taken that cover game theory). I know there are textbooks that cover models and games that are a quintessential part of the literature but I wanted address modeling an interaction by myself. Specifically I want to talk about the idea of Mutually Assured Destruction (MAD) that became so popular during the Cold War ...
+The game theory we usually talk about in introductory/intermediate undergrad classes and highschool always left me really dissatisfied (which to be fair, it is my fault that this is the extent of classes that I have taken that cover game theory). I know there are textbooks that cover models and games that are a quintessential part of the literature but I going through these modeling exercises myself just to practice creativity. Specifically I want to talk about the idea of Mutually Assured Destruction (MAD) that became so popular during the Cold War.
 
 
 \section*{The Basic 2x2}
-In highschool AP Econ classes we are taught about simple games where there are two players each of whom can take one of two possible actions. In the context of MAD, we could label the two agents as the "US" and "Russia", both of whom can decide to "launch nukes" or "don't launch nukes". The corresponding chart we would use to work this problem out would look something like \\
+In highschool AP Econ classes we are taught about simple games where there are two players each of whom can take one of two possible actions. In the context of MAD, we could label the two agents as the "US" and "Russia", both of whom can decide to "launch nukes" or "don't launch nukes". The corresponding chart we would use to work this problem out would look something like 
 
-%\begin{tabular}
-%\hline 
-%b  & Russia & a \\
- %c & Launch & Don't Launch\\
+\begin{center}
+\begin{tabular}{ c |c |c| }
+  & \textbf{Russia Launch} & \textbf{Russia Don't Launch}\\
+\hline 
+\textbf{US Launch} & -100, -100 & 0, -99  \\
+\hline  
+\textbf{US Don't Launch} & -99, 0 & 0, 0 \\
+\hline
+\end{tabular}
+\end{center}
 
-%\end{tabular}}
-%\end{center}
+\noindent I made the chart above with a set of payoffs for each combination of actions such that there is only one Nash equilibrium at both agents choosing "Don't Launch". The equilibria of this game could have changed if I had chosen different payoffs and one interesting concept to explore is the conditions on the payoffs in order for each outcome in the statespace to become a Nash equilibrium. Specifically, consider the chart below, here the $x$ payoffs belong to the US and the $y$ payoffs belong to Russia. The $x_{DL,DL}$ payoff for example is the payoff that the US experiences when both the US and Russia chooses not to launch.
 
-\noindent I made the chart above with a set of payoffs for each combination of actions such that there is only one Nash equilibrium at both agents choosing "Don't Launch". The equilibria of this game could have changed if I had chosen different payoffs and one interesting concept to explore is the conditions on the payoffs in order for each outcome in the statespace to become a Nash equilibrium. Specifically, consider the chart below, here the $x$ payoffs belong to the US and the $y$ payoffs belong to Russia. The $x_{DL,DL}$ payoff for example is the payoff that the US experiences when both the US and Russia chooses not to launch.\\
+\begin{center}
+\begin{tabular}{ c |c |c| }
+  & \textbf{Russia Launch} & \textbf{Russia Don't Launch}\\
+\hline 
+\textbf{US Launch} & $x_{L,L}, y_{L,L}$ & $x_{L,DL}, y_{L,DL}$  \\
+\hline  
+\textbf{US Don't Launch} & $x_{DL,L}, y_{DL,L}$ & $x_{DL,DL}, y_{DL,DL}$ \\
+\hline
+\end{tabular}
+\end{center}
 
-
-
-\noindent Visualizing the domains at which these conditions hold is a bit difficult to do all at once since we have to consider a four dimensional space but we can at least talk about it.\\
+\noindent Visualizing the domains at which these conditions hold is a bit difficult to do all at once since we have to higher dimensional spaces but we can at least talk about it.\\
 
 \noindent We can also simplify the problem of visualizing when certain outcomes become Nash equilibria by imposing some functional constraints on the payoffs. For example, we can say that a country has a utilitarian mindset applying to people of all nationalities (where all life has at least some positive value) and when getting launched at it is weakly more utility for them to not retaliate. In such a case, if the US were to adopt this mindset, we would then have that $x_{DL,L} \geq x_{L,L}$. This combined with the not so wild assumption that the US would prefer not to get launched at would yield the relationship $x_{DL,DL} \geq x_{DL,L} \geq x_{L,L}$. We can tack on one final assumption, that the US attributes more value to their own citizens than citizens of other countries, and we can completely describe the relationship between all the payoffs that the US experiences $$x_{DL,DL} \geq x_{L,DL} \geq x_{DL,L} \geq x_{L,L}.$$
 
@@ -110,7 +122,11 @@ In highschool AP Econ classes we are taught about simple games where there are t
 
 \section*{$N$ Discrete Choices and $M$ players}
 
-The world is of course not a simple place where there are only two options. In the case of the Cold War for example, the US and Russia fought in many ways other than just launching nuclear weapons such as in proxy wars or defensive posturing of their allies and weapons.
+The world is of course not a simple place where there are only two options. In the case of the Cold War for example, the US and Russia fought in many ways other than just launching nuclear weapons such as in proxy wars or defensive posturing of their allies and weapons. With discrete choices, as long as the choices are finite, we can always still make a table and do the same exercises as we would with a 2x2 table to analyze equilibria. If we are to add multiple player's, however, the dimentionality of the charts would have to increase which is a bit difficult to write down (on a 2 dimensional page). \\
+
+\noindent Let's set up some notation; let there be $M$ many players $\{p_1, p_2, \ldots, p_M\}$, where each agent $m$ has $N_m$ actions (note $N_m$ may be different for each agent) $\{a_{m,1}, a_{m,2}, \ldots, a_{m,N_m}\}$. So finally, let $\{i_1, i_2, \ldots, i_M\}$ be indices such that for any $m\in [M]$ we have that $i_m\in [N_m]$. This lets us write, for a vector of any combinations of actions $\mathbf{a} = (a_{1,i_1}, a_{2, i_2}, \ldots, a_{M, i_M})$ we can denote the payoff vector as $(p_1(\mathbf{a}), p_2(\mathbf{a}), \ldots, p_M(\mathbf{a}))$. There's a lot of indexing that's going on but I'm trying to make sure I'm being rigorous; regardless the main idea to takeaway from the notation is that each agent has their own set of actions that they can take and each agent's payoff is a separate function whose domain is the set of all combination of actions each agent can take. With this construction, we can already see how in the continuous space we can work with objects such as jacobians to do the analysis that we want to do.\\
+
+\noindent In the discrete space, however, 
 
 
 \section*{Continuous Choices}
