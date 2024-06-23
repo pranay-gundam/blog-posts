@@ -88,7 +88,7 @@ The game theory we usually talk about in introductory/intermediate undergrad cla
 
 
 \section*{The Basic 2x2}
-In highschool AP Econ classes we are taught about simple games where there are two players each of whom can take one of two possible actions. In the context of MAD, we could label the two agents as the "US" and "Russia", both of whom can decide to "launch nukes" or "don't launch nukes". The corresponding chart we would use to work this problem out would look something like 
+In highschool AP Econ classes we are taught about simple games where there are two players each of whom can take one of two possible actions. In the context of MAD, we could label the two agents as the "US" and the "Soviet Union", both of whom can decide to "launch nukes" or "don't launch nukes". The corresponding chart we would use to work this problem out would look something like 
 
 \begin{center}
 \begin{tabular}{ c |c |c| }
@@ -101,11 +101,11 @@ In highschool AP Econ classes we are taught about simple games where there are t
 \end{tabular}
 \end{center}
 
-\noindent I made the chart above with a set of payoffs for each combination of actions such that there is only one Nash equilibrium at both agents choosing "Don't Launch". The equilibria of this game could have changed if I had chosen different payoffs and one interesting concept to explore is the conditions on the payoffs in order for each outcome in the statespace to become a Nash equilibrium. Specifically, consider the chart below, here the $x$ payoffs belong to the US and the $y$ payoffs belong to Russia. The $x_{DL,DL}$ payoff for example is the payoff that the US experiences when both the US and Russia chooses not to launch.
+\noindent I made the chart above with a set of payoffs for each combination of actions such that there is only one Nash equilibrium at both agents choosing "Don't Launch". The equilibria of this game could have changed if I had chosen different payoffs and one interesting concept to explore is the conditions on the payoffs in order for each outcome in the statespace to become a Nash equilibrium. Specifically, consider the chart below, here the $x$ payoffs belong to the US and the $y$ payoffs belong to the Soviet Union. The $x_{DL,DL}$ payoff for example is the payoff that the US experiences when both the US and the Soviet Union chooses not to launch.
 
 \begin{center}
 \begin{tabular}{ c |c |c| }
-  & \textbf{Russia Launch} & \textbf{Russia Don't Launch}\\
+  & \textbf{SU Launch} & \textbf{SU Don't Launch}\\
 \hline 
 \textbf{US Launch} & $x_{L,L}, y_{L,L}$ & $x_{L,DL}, y_{L,DL}$  \\
 \hline  
@@ -122,19 +122,25 @@ In highschool AP Econ classes we are taught about simple games where there are t
 
 \section*{$N$ Discrete Choices and $M$ players}
 
-The world is of course not a simple place where there are only two options. In the case of the Cold War for example, the US and Russia fought in many ways other than just launching nuclear weapons such as in proxy wars or defensive posturing of their allies and weapons. With discrete choices, as long as the choices are finite, we can always still make a table and do the same exercises as we would with a 2x2 table to analyze equilibria. If we are to add multiple player's, however, the dimentionality of the charts would have to increase which is a bit difficult to write down (on a 2 dimensional page). \\
+The world is of course not a simple place where there are only two options. In the case of the Cold War for example, the US and the Soviet Union fought in many ways other than just launching nuclear weapons such as in proxy wars or defensive posturing of their allies and weapons. With discrete choices, as long as the choices are finite, we can always still make a table and do the same exercises as we would with a 2x2 table to analyze equilibria. If we are to add multiple player's, however, the dimentionality of the charts would have to increase which is a bit difficult to write down (on a 2 dimensional page). \\
 
 \noindent Let's set up some notation; let there be $M$ many players $\{p_1, p_2, \ldots, p_M\}$, where each agent $m$ has $N_m$ actions (note $N_m$ may be different for each agent) $\{a_{m,1}, a_{m,2}, \ldots, a_{m,N_m}\}$. So finally, let $\{i_1, i_2, \ldots, i_M\}$ be indices such that for any $m\in [M]$ we have that $i_m\in [N_m]$. This lets us write, for a vector of any combinations of actions $\mathbf{a} = (a_{1,i_1}, a_{2, i_2}, \ldots, a_{M, i_M})$ we can denote the payoff vector as $(p_1(\mathbf{a}), p_2(\mathbf{a}), \ldots, p_M(\mathbf{a}))$. There's a lot of indexing that's going on but I'm trying to make sure I'm being rigorous; regardless the main idea to takeaway from the notation is that each agent has their own set of actions that they can take and each agent's payoff is a separate function whose domain is the set of all combination of actions each agent can take. With this construction, we can already see how in the continuous space we can work with objects such as jacobians to do the analysis that we want to do.\\
 
-\noindent In the discrete space, however, 
+\noindent In the discrete space, however, we can make claims about nash equilibria at a action vector $\mathbf{a^*}$ when for each agent $m\in [M]$ we have that for any other $\mathbf{a'}$ in the action space, where $a'$ is an action vector such that all the other players' are fixed, that $$p_m(\mathbf{a^*}) \geq p_m(\mathbf{a'}).$$
 
+\noindent To offer some context, consider the same Cold War scenario except this time there are three actors: US, Soviet Union, and China. Each country can choose one of two actions, to launch a nuclear missile or not but each of the countries have political goals that 
 
 \section*{Continuous Choices}
 
+The setup here is quite analogous to the generalized discrete case above. Again there are 
 
 
+\noindent Point where the jacobian matrix at that point turns into a zero matrix and the hessian is negative. This to me seems like a nuke all condition (pun intended) for claiming equilibrium but I think is all we can claim in such a generalized setup. From my experience in Macro so far, calculating objects such as the jacobian can be difficult in certain setups: such as instances where actions are temporally sequentially related (as is the case in most Macro models). This brings us to another discussion about the model we have crafted thus far, what exactly the action space involves and how to structure problems. The most generalized setup that I discussed above can account for a problem where actors make actions over different points in time by writing a large action space that accounts for each possible sequence of actions. This of course is quite the brute force method that creates an incredibly large statespace to work with. In macro, we try to reduce this problem by writing a dynamic recursively defined problem with the help of bellman equations but this also relies on an assumption that optimal actions only depend on the current state and don't have a temporal dependence.
 
+\section*{Concluding Thoughts}
 
+As a first aside, the more I think about this, the more I realize there are many parallels all the difference fields in econ (to be quite reductionist everything just seems like various ways to form optimization problems and how we can take advantage of the structural relationships that we impose to offer causal insights or take shortcuts to solve the problem).
 
+The generalized setup does make me excited for the types of problems and relationships that can arise from it. The big issue right now is that I've done a lot of boring notation and setup but haven't crafted a problem that we could make interesting insights from.
 
 \end{document}
