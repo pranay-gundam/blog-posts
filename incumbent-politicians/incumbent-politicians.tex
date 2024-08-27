@@ -72,15 +72,49 @@ linkcolor= macroblue
 %-----------------------
 \begin{document}
 \maketitle
+
+
 \section*{Introduction}
 
-I've thought a lot about the best way to model a politician's behaviour. At the end of the day, I think the real life structures that are best to latch onto and focus on are the cyclicality of elections and the two M's: money and morality. \\
+Modeling a politician's actions is an interesting problem. I don't know why the idea of framing it as a job search problem didn't immediately jump out to me but it makes a lot of sense given that the real life structures that I think are best to latch onto are the cyclicality of elections and the two M's: money and morality (I feel like I've really cooked here but it is very likely the case that the political econ people have done this exercise decades ago). \\
 
-\noindent Another preface, I feel like I've really cooked here but it is very likely the case that the political econ people have done this exercise decades ago.
+\noindent As some really quick context, the jobs search problem in economics is a common dynamic programming problem. The core idea is that there exists some worker who starts out as unemployed and in each time period that they are unemployed they recieve both an unemployment benefit and a job offer whose wage is drawn from some distribution which the worker can accept to work at that job and recieve that wage for the rest of time or stay unemployed and draw a potentially different wage next time period. From this setup we are then asked what the reservation wage draw is for such a worker given that they receive unemployment benefit $b\in \mathbb{R}$ and draw wages from some given distribution $w \sim F(\cdot)$. I have a git repo that is a work in progress (\href{https://github.com/pranay-gundam/PhDMacro-I}{github/pranay-gundam/PhD-Macro-I}) that I am working on just to code up a lot of what we had done in PhD Macro I at NYU that goes a lot more in depth and has (or at least will done once I'm done working on the TidyTuesday stuff) more generalized code solving these sorts of job search problems.
+
+\section*{The Model}
+
+Let's setup a few objects first before going into the optimization problem that the politician has to solve. A politician can be either voted-in or not (gonna just say voted-out for now even if they were never voted-in before) and the problem they face is different in both states. Each time period, there is some election that occurs that can transition politicians from voted-in to voted out and visa-versa. This transition is stochastic and politicians can affect this transition probability through how much money they choose to spend on an election. One other key detail to mention is how we incorporate the political spectrum. We will define the political spectrum as a set of $N$ "policies". A person/politician exists in this political spectrum by lying somewhere between totally agreeing or disagreeing with each of the $N$ policies. Quantiatively the political spectrum is a $N$-dimensional unit hypercube $\Omega$ where a particular person is represented by a vector $\rho = (\rho_1, \rho_2, \ldots, \rho_N)$. Each policy $\rho_i \in [-1,1]$ is a measure of agreement with the $i-th$ policy where a value of $1$ is total agreement, a value of $-1$ is total disagreement, and $0$ means the person is indifferent. Note that each $\rho_i$ need not be $-1,1,$ or $0$, the value can lie somewhere in between as well to represent the degree to which there is agreement or disagreement.\\
+
+\noindent I used a lot of fancy words in the last paragraph like hypercube just to make sure I'm being precise for the higher dimensional stuff but to help understand what's going on just think about the common 2-dimensional graph that we use to chart the political spectrum with the x-axis being economic left or right and the y-axis being authoritarian or libertarian. This is the same concept but more generalized to be more encompassing of nuance, someone can be liberal with respect to some policies, conservative with respect to others, and just have no preference for again some others.\\
+
+\noindent With this setup, the problem looks a bit different from the voted-in to voted-out perspective so let's look at each individually.
+\begin{itemize}
+\item \textbf{voted-out}: Politicians form utility over how much they consume and can also choose to save for the future as well. They also can choose an amount of money to spend on the upcoming election. The probability of being voted-in increases with the amount of money spent on the election. Savings are not allowed to be negative (meaning they can't borrow for the future) and when voted-out, politicians get a specific voted-out wage. In bellmanized terms, they solve the problem
+$$v_{o}(s) = \max_{c, \zeta}\left\{p_o(u_o(c) + \beta v_o(s + w_o - c - \zeta)) + (1-p_o)(u_o(c) + \beta v_i(s + w_o - c - \zeta))\right\}$$
+
+where $p_o \sim f_o(\zeta)$ is the probability that the politician remains voted out, $s$ is the aggregate savings that the politician possesses, $w_o$ is the voted-out wage that politicians recieve, $c$ is how much the politician chooses to consume, $\zeta$ is how much the politician chooses to spend on the election, $u_o$ is the politician's utility function in the voted-out state, and finally $v_i$ is the value of the voted-in state given some aggregate savings.\\
+
+\noindent Verbally put, we can described the value function above as the current utility plus the temporally discounted expected value of the future value function. The probability that we stay in the voted-out state $p_o$ times the temporally discounted value of this future state $v_o$ with future savings, which is the current savings plus the voted-out wage minus consumption and spendings on the election. The probability that we transition into the voted-in state $1-p_o$ times the temporally discounted value of this future state $v_i$ with future savings, which is the current savings plus the voted-out wage minus consumption and spendings on the election.
+
+\item \textbf{voted-in}: One key detail here that doesn't appear in the voted-out politician's problem is the idea of a "vote" which is a choice that the politician makes. This is an extra feature that is unique to the voted-in state (which makes sense because how a politician votes is a key indicator of what a politician does in office). This vote makes it's way into both the utility function, as in this model voted-in politicians also form utility based on how close their vote in a given period is close to their objective sense of morality, and also into the transition probabilities, as in this model the closer a voted-in politician's voted is to their party philosophy and their constituents' philosophy. Otherwise the problem is the same as the voted-out state.
+$$v_{i}(s) = \max_{c, \zeta, v}\left\{p_i(u_i(c, v) + \beta v_i(s + w_i - c - \zeta)) + (1-p_i)(u_i(c, v) + \beta v_o(s + w_i - c - \zeta))\right\}$$
+
+where $p_i \sim f_i(\zeta, v)$ is the probability that the politician remains voted out, $s$ is the aggregate savings that the politician possesses, $w_i$ is the voted-out wage that politicians recieve, $c$ is how much the politician chooses to consume, $\zeta$ is how much the politician chooses to spend on the election, $u_i$ is the politician's utility function in the voted-out state, and finally $v_i$ is the value of the voted-in state given some aggregate savings.\\
+
+\noindent Verbally put, we can described the value function above as the current utility plus the temporally discounted expected value of the future value function. The probability that we stay in the voted-out state $p_i$ times the temporally discounted value of this future state $v_i$ with future savings, which is the current savings plus the voted-out wage minus consumption and spendings on the election. The probability that we transition into the voted-out state $1-p_i$ times the temporally discounted value of this future state $v_o$ with future savings, which is the current savings plus the voted-out wage minus consumption and spendings on the election.
+
+\end{itemize}
+
+\noindent The politician starts out the problem being voted-out and with zero savings. It would be interesting to consider other initial points but since there is no specific temporal dependency doing the value iteration (that I will talk about in the next section) will let us analyze those situations as well.
+
+\section*{Solving the Model}
+
+Before we talk about how to solve this model I think its also pretty important to discuss what exactly a solution entails, this difference between solving a model and estimating a model was a nuance that I initially did not have a very thorough grasp on. It's a key difference in parametric models.\\
+
+\noindent The most algorithmically straightforward global method of solving such a problem that I know of is value iteration. That's what I'll be focussing on next week but if you want to see more details this week itself then feel free to check out the documentation for the job search part of my PhD Macro I git repo at \href{https://github.com/pranay-gundam/PhDMacro-I}{github/pranay-gundam/PhD-Macro-I}.
 
 \section*{Concluding Thoughts}
 
-
+I think the setup gives way for some pretty unique insights but the solution is also very dependent on all the parameters $\beta$, $w_i$, $w_o$, utility functions $u_o$ \& $u_i$, and distributions $f_o$ \& $f_i$. Next week, I'm going to focus on a set of these parameters that makes logical sense for the model to work, such as $w_i$ being larger than $w_o$ (although the 
 
 \end{document}
 
