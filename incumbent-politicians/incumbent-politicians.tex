@@ -35,7 +35,7 @@
 \usepackage{longtable}
 \definecolor{cmured}{RGB}{175,30,45}
 \definecolor{macroblue}{RGB}{56,108,176}
-\usepackage[format=plain,
+\usepackage[format=plain, 
 labelfont=bf,
 textfont=]{caption}
 \usepackage[colorlinks=true,citecolor=macroblue,linkcolor=macroblue,urlcolor=macroblue]{hyperref}
@@ -108,13 +108,15 @@ where $p_i \sim f_i(\zeta, v)$ is the probability that the politician remains vo
 
 \section*{Solving the Model}
 
-Before we talk about how to solve this model I think its also pretty important to discuss what exactly a solution entails, this difference between solving a model and estimating a model was a nuance that I initially did not have a very thorough grasp on. It's a key difference in parametric models.\\
+Before we talk about how to solve this model I think its also pretty important to discuss what exactly a solution entails, this difference between solving a model and estimating a model was a nuance that I initially did not have a very thorough grasp on. It's a key difference in these parameter driven econ models. The difference lies in understanding what variables are exogenous parameters and what variables are endogenously explained in the model itself, solving the model entails exploring these endogenous variables and estimation involves exploring the values of the exogenous parameters based on what the real world data tells us.\\
+
+\noindent Analytical solutions to the types of models that we have discussed so far, to my understanding, are pretty hard to come by and are pretty special cases. There are global solution methods that are often not really helpful with more complicated and interesting models, but what seems to be used in the literature more is along the lines of difference equations.\\
 
 \noindent The most algorithmically straightforward global method of solving such a problem that I know of is value iteration. That's what I'll be focussing on next week but if you want to see more details this week itself then feel free to check out the documentation for the job search part of my PhD Macro I git repo at \href{https://github.com/pranay-gundam/PhDMacro-I}{github/pranay-gundam/PhD-Macro-I}.
 
 \section*{Concluding Thoughts}
 
-I think the setup gives way for some pretty unique insights but the solution is also very dependent on all the parameters $\beta$, $w_i$, $w_o$, utility functions $u_o$ \& $u_i$, and distributions $f_o$ \& $f_i$. Next week, I'm going to focus on a set of these parameters that makes logical sense for the model to work, such as $w_i$ being larger than $w_o$ (although the 
+I think the setup gives way for some pretty unique insights (I'm really excited to get started on the next week stuff) but the solution is also very dependent on all the parameters $\beta \in (0,1)$, $w_i$, $w_o$, utility functions $u_o$ \& $u_i$, and distributions $f_o$ \& $f_i$. Next week, I'm going to focus on a set of these parameters that makes logical sense for the model to work, such as $w_i$ being larger than $w_o$ (although this is contingent on the "marginal rate of substitution" between the utility in the moral benefit of one's vote versus consumption), and some nice behaving functions/distributions for the utility/distributions respectively.
 
 \end{document}
 
