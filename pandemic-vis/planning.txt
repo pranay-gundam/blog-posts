@@ -1,0 +1,5 @@
+This document is a means for me to plan out all my thought about the pandemics simulation visualization code.
+
+Here are the main components that I have to think about:
+- Should it be an agent/network based model and if so, are the nodes people or places? If it's places I can have specific characteristics of each node such as the percentage of each node that has been infected. If it is people based, I can make clusters of highly connected nodes that represent places.
+- Rather than network based, should it be a map that is geographically based? The nodes element does make the travel of the disease an easy feature to keep track of and this is anyways how travel tends to work in real life.
