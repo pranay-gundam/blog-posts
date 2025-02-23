@@ -1,3 +1,5 @@
 *.synctex*
 *.html
 *.log
+*.out
+*.aux
