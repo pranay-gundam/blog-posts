@@ -80,13 +80,47 @@ For some reason I always find myself gravitating towards these dynamic programmi
 
 \section*{The Model}
 
-I'm going to start this process in reverse compared to what I've typically done, by first introducing the bellman equation and then explaining all the notation for context. The agent/PhD econ applicant faces the following bellmanized decision problem $$v(t, x_{l}, x_{e}) = \max\left\{p  u(t) + \beta(1-p)v(t+1, x_{l}, x_{e}), w_{l} + \beta v(t+1, x_{l}+1, x_{e}), w_{e} + \beta v(t+1, x_{l}, x_{e}+1)\right\},$$ where $$u(t) = .$$
+I'm going to start this process in reverse compared to what I've typically done, by first introducing the bellman equation and then explaining all the notation for context. The agent/PhD econ applicant faces the following bellmanized decision problem $$v(t, x_{l}, x_{e}) = \max\left\{p  u(t) + \beta(1-p)v(t+1, x_{l}, x_{e}), w_{l} + \beta v(t+1, x_{l}+1, x_{e}), w_{e} + \beta v(t+1, x_{l}, x_{e}+1)\right\},$$ where $u(t)$ is some utility function of time periods left until retirement that expresses the sum of the total discounted wages the applicant will experience and personal preference for having an academic job. If we wanted we could also express utility as $u(t, x_l, x_e)$ and say that there is also some independent benefit of all of the life and econ experience accumulated before grad school as well. To give an example, we could write $u(t)$ as $$u(t, x_l, x_e) = \phi_aw_a\frac{\beta^{t+6} - \beta^T}{1-\beta} + \phi_l x_l + \phi_e x_e.$$
+\noindent Here's what all the other notation means:
+\begin{itemize}
+\item \pmb{$t$}: indicates the current time period.
 
-\noindent Utility is some function of total time discounted wages until retirement, personal delay preference (i.e. you dont like to delay going to grad school (maybe your wages are discounted more the larger t is)) and some other preference for being an academic. We can also tac on some other exogenous life experience and econ experience benefit as well.
+\item \pmb{$T$}: indicates the time period in which agents retire.
+
+\item \pmb{$p$}: indicates the probability of getting into a PhD program when an agent chooses to apply to them. This will be some function of the life experiences the individual has accumulated, the econ experience the individual has accumulated, the homogeneity of the class pool, and the inherent ability of the applicant. It could look something like this $$p(x_l, x_e) = \frac{p^*}{1 + \exp{(\kappa_e x_e + \kappa_l x_l + \kappa_f F)}}$$
+
+\item \pmb{$p^*$}: indicates the baseline probability of getting accepted to a PhD program for an individual with zero latent potential and zero years of either life or economics experience.
+
+\item \pmb{$F$}: indicates the amount of latent potential an applicant has.
+
+\item \pmb{$\kappa_f$}: scales the amount of latent potential to show how important it is relative to econ and life experience in terms of increasing the probability of getting accepted.
+
+\item \pmb{$\kappa_e$}: scales the amount of econ experience to show how important it is relative to latent potential and life experience in terms of increasing the probability of getting accepted.
+
+\item \pmb{$\kappa_l$}: scales the amount of life experience to show how important it is relative to latent potential and econ experience in terms of increasing the probability of getting accepted, this is what is dictated by the homogeneity of the class.
+
+\item \pmb{$\beta$}: the time discount factor to discount future wages relative to current wages.
+
+\item \pmb{$x_l$}: indicates the years of life experience.
+
+\item \pmb{$x_e$}: indicates the years of econ experience.
+
+\item \pmb{$w_l$}: indicates the wage from pursuing a year of life experience.
+
+\item \pmb{$w_e$}: indicates the wage from pursuing a year of econ experience.
+
+\item \pmb{$w_a$}: indicates the wage from a year of a post PhD life.
+
+\item \pmb{$\phi_l$}: scales the amount of life experience to show how valued it is in terms of overall utility relative to wages from a post PhD career or years of econ experience.
+
+\item \pmb{$\phi_e$}: scales the amount of econ experience to show how valued it is in terms of overall utility relative to wages from a post PhD career or years of life experience.
+
+\item \pmb{$\phi_a$}: scales the amount of wages from a post PhD career to show how valued it is in terms of overall utility relative to years of either life or econ experience.
+\end{itemize}
 
 \section*{Discussion}
 
-
+With a few modifications, we could adapt this model to any sort of "rat race" and estimate the effects of each of the push and pull forces on an individual in such a race. The one thing that I haven't clearly spelled out so far is the question of how far the rat race will go, at what point do the pull forces balance out the push. Using this model, you would have to look at the interplay between the personal preferences of the agent and the key components that affect the probability of getting into a PhD program, but you can't make any claims about how a competitive agent would act in response to the general population since this model hasn't endogenized competitive forces and strategies.
 
 \end{document}
 
